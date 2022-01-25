@@ -1,0 +1,5 @@
+name: LegendPlugin
+version: '${project.version}'
+main: com.aquafun3d.legendplugin.Main
+api-version: 1.18
+authors: [ AquaFun3D ]
