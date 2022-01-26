@@ -15,6 +15,8 @@ public class EntbannCommand implements CommandExecutor {
 			}else{
 				player.sendMessage("Du hast keine Rechte jemanden zu entbannen.");
 			}
+		}else{
+			//TODO Command von der console aus nutzbar
 		}
 		return false;
 	}

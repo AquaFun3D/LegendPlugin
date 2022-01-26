@@ -15,6 +15,8 @@ public class BannCommand implements CommandExecutor {
 			}else{
 				player.sendMessage("Du hast keine Rechte jemanden zu bannen.");
 			}
+		}else{
+			//TODO Command von der console aus nutzbar
 		}
 		return false;
 	}

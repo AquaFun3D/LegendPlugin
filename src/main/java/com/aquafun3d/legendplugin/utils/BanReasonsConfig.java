@@ -26,5 +26,5 @@ public class BanReasonsConfig {
 		}
 		config = YamlConfiguration.loadConfiguration(file);
 	}
-
+	//TODO Getter und Setter
 }
