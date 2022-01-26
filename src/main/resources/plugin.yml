@@ -3,3 +3,11 @@ version: '${project.version}'
 main: com.aquafun3d.legendplugin.Main
 api-version: 1.18
 authors: [ AquaFun3D ]
+description: Bannsystem für PlayLegend
+
+
+commands:
+  bann:
+    description: Banne einen Spieler für einen bestimmte Zeit mit einem bestimmten Grund
+  entbann:
+    description: Entbanne einen Spieler
