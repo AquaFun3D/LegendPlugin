@@ -41,4 +41,3 @@ public final class Main extends JavaPlugin {
 	}
 
 }
-//TODO Javadoc

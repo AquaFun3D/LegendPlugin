@@ -2,11 +2,19 @@ package com.aquafun3d.legendplugin.utils;
 
 import java.sql.*;
 
+/**
+ * Class to handle basic MySQL database interaction
+ */
 public class MySQL {
 
-
+	/**
+	 * connection variable of the database
+	 */
 	private static Connection connection;
 
+	/**
+	 * Connect to MySQL Database
+	 */
 	public static void connect(){
 		if(!isConnected()){
 			try {
@@ -19,6 +27,9 @@ public class MySQL {
 		}
 	}
 
+	/**
+	 * Disconnect from MySQL Databse
+	 */
 	public static void disconnect(){
 		if(!isConnected()){
 			try {
@@ -30,10 +41,17 @@ public class MySQL {
 		}
 	}
 
+	/**
+	 * Check if database is connected
+	 * @return true if connected, false if not
+	 */
 	public static boolean isConnected(){
 		return connection != null;
 	}
 
+	/**
+	 * Create a Table in database if not existing
+	 */
 	public static void createTable(){
 		if(isConnected()){
 			try {
@@ -44,6 +62,10 @@ public class MySQL {
 		}
 	}
 
+	/**
+	 * Makes an Update to the database by a given query
+	 * @param query given query to update in database
+	 */
 	public static void update(String query){
 		if(isConnected()){
 			try {
@@ -54,6 +76,11 @@ public class MySQL {
 		}
 	}
 
+	/**
+	 * Gives a Result form database by a given query
+	 * @param query Query to get result of
+	 * @return Result of given query
+	 */
 	public static ResultSet getResult(String query){
 		if(isConnected()){
 			try {

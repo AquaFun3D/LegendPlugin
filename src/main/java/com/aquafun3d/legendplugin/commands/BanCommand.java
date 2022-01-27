@@ -1,7 +1,7 @@
 package com.aquafun3d.legendplugin.commands;
 
 import com.aquafun3d.legendplugin.utils.BanReasonsConfig;
-import com.aquafun3d.legendplugin.utils.BanService;
+import com.aquafun3d.legendplugin.utils.BanManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -23,7 +23,7 @@ public class BanCommand implements CommandExecutor {
 				for (int i = 2; i < args.length; i++){
 					reason.append(args[i] + " ");
 				}
-				BanService.ban(player.getUniqueId(), player.getDisplayName(), time, reason.toString());
+				BanManager.ban(player.getUniqueId(), player.getDisplayName(), time, reason.toString());
 				sender.sendMessage("§e" + BanReasonsConfig.get("PlayerBan1") + "§b" + args[0] + "§e" +  BanReasonsConfig.get("PlayerBan2"));
 			}else{
 				sender.sendMessage("§a" + BanReasonsConfig.get("BanCommand"));

@@ -10,6 +10,9 @@ public class BanReasonsConfig {
 	private static File file;
 	private static YamlConfiguration config;
 
+	/**
+	 * Creates config file if not existing
+	 */
 	public BanReasonsConfig(){
 		File dir = new File("./plugins/configs");
 		if(!dir.exists()){
@@ -27,10 +30,20 @@ public class BanReasonsConfig {
 		config = YamlConfiguration.loadConfiguration(file);
 	}
 
+	/**
+	 * Checks if a path is valid in config
+	 * @param path Path to check
+	 * @return true if valid
+	 */
 	public static boolean contains(String path){
 		return config.contains(path);
 	}
 
+	/**
+	 * Gets the corresponding String to a given path from th config
+	 * @param path Path to check in config
+	 * @return String form config
+	 */
 	public static String get(String path){
 		if(contains(path)){
 			return config.getString(path);

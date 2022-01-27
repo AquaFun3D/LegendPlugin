@@ -6,8 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
-public class BanService {
+/**
+ * Handles the bansystem
+ */
+public class BanManager {
 
+	/**
+	 * Checks if a player is already banned (is in database)
+	 * @param uuid UUID of the player
+	 * @return true if banned
+	 */
 	public static boolean isBanned(UUID uuid){
 		ResultSet rs = MySQL.getResult("SELECT * FROM legend.bansystem WHERE UUID='"+uuid+"'");
 		try{
@@ -20,6 +28,13 @@ public class BanService {
 		return false;
 	}
 
+	/**
+	 * Handles the ban-process in database
+	 * @param uuid players uuid
+	 * @param name name of the player
+	 * @param time time for how long the player is banned in minutes
+	 * @param reason reason why the player got banned
+	 */
 	public static void ban(UUID uuid, String name, int time, String reason){
 		if(isBanned(uuid)){
 			return;
@@ -39,10 +54,19 @@ public class BanService {
 		}
 	}
 
+	/**
+	 * Removes a banned player from database
+	 * @param name name of the player to unban
+	 */
 	public static void unban(String name){
 		MySQL.update("DELETE FROM legend.bansystem WHERE Playername='"+name+"'");
 	}
 
+	/**
+	 * Check wether a player is permabanned or not
+	 * @param uuid players uuid
+	 * @return true if player is permabanned
+	 */
 	public static boolean isPerma(UUID uuid){
 		if(isBanned(uuid)) {
 			ResultSet rs = MySQL.getResult("SELECT * FROM legend.bansystem WHERE UUID='"+uuid+"'");
@@ -57,6 +81,11 @@ public class BanService {
 		return false;
 	}
 
+	/**
+	 * Gets the reason why a player is banned from database
+	 * @param uuid players uuid
+	 * @return Reason why the player was banned
+	 */
 	public static String getReason(UUID uuid){
 		if(isBanned(uuid)) {
 			ResultSet rs = MySQL.getResult("SELECT * FROM legend.bansystem WHERE UUID='"+uuid+"'");
@@ -71,6 +100,11 @@ public class BanService {
 		return null;
 	}
 
+	/**
+	 * Gives the remaining time of a banned player
+	 * @param uuid players uuid
+	 * @return time in minutes
+	 */
 	public static float getRemainingTime(UUID uuid){
 		if(isBanned(uuid)) {
 			ResultSet rs = MySQL.getResult("SELECT * FROM legend.bansystem WHERE UUID='"+uuid+"'");
