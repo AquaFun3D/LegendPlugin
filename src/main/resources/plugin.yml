@@ -7,7 +7,7 @@ description: Bannsystem für PlayLegend
 
 
 commands:
-  bann:
-    description: Banne einen Spieler für einen bestimmte Zeit mit einem bestimmten Grund
-  entbann:
-    description: Entbanne einen Spieler
+  ban:
+    description: Bans a player
+  unban:
+    description: unbans a player

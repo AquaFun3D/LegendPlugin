@@ -21,14 +21,18 @@ public class BanService {
 	}
 
 	public static void ban(UUID uuid, String name, int time, String reason){
-		long duration = time * 3600000L + System.currentTimeMillis();
+		long duration;
+		if(time != -1) {
+			duration = time * 3600000L + System.currentTimeMillis();
+		}else {
+			duration = time;
+		}
 		if(isBanned(uuid)){
 			return;
 		}
 		MySQL.update("INSERT INTO legend.bansystem (Playername, UUID, Reason, Duration) VALUES ('"+name+"','"+uuid+"','"+reason+"','"+duration+"')");
 		if(Bukkit.getPlayer(name) != null){
-			Bukkit.getPlayer(name).kickPlayer("lorem ipsum");
-			//TODO Text aus config loaden
+			Bukkit.getPlayer(name).kickPlayer("lorem ipsum"); //TODO
 		}
 	}
 

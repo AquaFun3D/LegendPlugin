@@ -1,7 +1,7 @@
 package com.aquafun3d.legendplugin;
 
-import com.aquafun3d.legendplugin.commands.BannCommand;
-import com.aquafun3d.legendplugin.commands.EntbannCommand;
+import com.aquafun3d.legendplugin.commands.BanCommand;
+import com.aquafun3d.legendplugin.commands.UnbanCommand;
 import com.aquafun3d.legendplugin.utils.BanReasonsConfig;
 import com.aquafun3d.legendplugin.utils.MySQL;
 import org.bukkit.Bukkit;
@@ -24,9 +24,8 @@ public final class Main extends JavaPlugin {
 	}
 
 	private void commandRegistration(){
-		getCommand("bann").setExecutor(new BannCommand());
-		getCommand("entbann").setExecutor(new EntbannCommand());
+		getCommand("ban").setExecutor(new BanCommand());
+		getCommand("unban").setExecutor(new UnbanCommand());
 	}
 
 }
-//TODO Datenbank
