@@ -13,7 +13,7 @@ public class BanCommand implements CommandExecutor {
 		if(sender.isOp()){
 			if(args.length >= 3){
 				Player player = Bukkit.getPlayer(args[0]);
-				int time = Integer.getInteger(args[1]);
+				int time = Integer.parseInt(args[1]);
 				StringBuilder reason = new StringBuilder();
 				for (int i = 2; i < args.length; i++){
 					reason.append(args[i]);

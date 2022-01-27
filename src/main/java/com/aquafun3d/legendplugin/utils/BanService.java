@@ -23,7 +23,7 @@ public class BanService {
 	public static void ban(UUID uuid, String name, int time, String reason){
 		long duration;
 		if(time != -1) {
-			duration = time * 3600000L + System.currentTimeMillis();
+			duration = time * 60000L + System.currentTimeMillis();
 		}else {
 			duration = time;
 		}
@@ -54,13 +54,13 @@ public class BanService {
 		return null;
 	}
 
-	public static long getRemainingTime(UUID uuid){
+	public static float getRemainingTime(UUID uuid){
 		if(isBanned(uuid)) {
 			ResultSet rs = MySQL.getResult("SELECT * FROM legend.bansystem WHERE UUID='" + uuid + "'");
 			try {
 				while (rs.next()) {
-					return rs.getLong("Duration") - System.currentTimeMillis();
-					//TODO Umrechnen
+					float time = rs.getLong("Duration") - System.currentTimeMillis();
+					return time / 60000;
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -68,4 +68,5 @@ public class BanService {
 		}
 		return 0;
 	}
+
 }
