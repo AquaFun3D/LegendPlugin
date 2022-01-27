@@ -14,10 +14,11 @@ public class LoginListener implements Listener {
 		Player player = e.getPlayer();
 		if(BanService.isBanned(player.getUniqueId())){
 			if(BanService.getRemainingTime(player.getUniqueId()) > 0){
-				e.disallow(PlayerLoginEvent.Result.KICK_BANNED, "§e" + BanReasonsConfig.get("BannedPlayer1") + "§6" +  (int) BanService.getRemainingTime(player.getUniqueId()) + "§e" +  BanReasonsConfig.get("BannedPlayer2") + "§c" +  BanService.getReason(player.getUniqueId()));
+				int time = Math.round(BanService.getRemainingTime(player.getUniqueId())*10)/10;
+				e.disallow(PlayerLoginEvent.Result.KICK_BANNED, "§e" + BanReasonsConfig.get("BannedPlayer1") + "§6" + time + "§e" +  BanReasonsConfig.get("BannedPlayer2") + "§c" +  BanService.getReason(player.getUniqueId()));
 			}
-			if(BanService.getRemainingTime(player.getUniqueId()) == -1){
-				e.disallow(PlayerLoginEvent.Result.KICK_BANNED, "§e" + BanReasonsConfig.get("PermanBan") +  BanService.getReason(player.getUniqueId()));
+			if(BanService.isPerma(player.getUniqueId())){
+				e.disallow(PlayerLoginEvent.Result.KICK_BANNED, "§e" + BanReasonsConfig.get("PermaBan") +  BanService.getReason(player.getUniqueId()));
 			}
 		}
 	}
@@ -25,7 +26,7 @@ public class LoginListener implements Listener {
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e){
 		Player player = e.getPlayer();
-		if(BanService.getRemainingTime(player.getUniqueId()) <= 0 && BanService.getRemainingTime(player.getUniqueId()) != -1) {
+		if(BanService.getRemainingTime(player.getUniqueId()) <= 0 && !BanService.isPerma(player.getUniqueId())) {
 			BanService.unban(player.getUniqueId());
 		}
 	}

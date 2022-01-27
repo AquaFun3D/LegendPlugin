@@ -37,7 +37,7 @@ public class MySQL {
 	public static void createTable(){
 		if(isConnected()){
 			try {
-				connection.createStatement().executeUpdate("CREATE TABLE IF NOT EXISTS legend.bansystem (Playername VARCHAR(16), UUID VARCHAR(100), Reason VARCHAR(128), Duration VARCHAR(100))");
+				connection.createStatement().executeUpdate("CREATE TABLE IF NOT EXISTS legend.bansystem (Playername VARCHAR(16), UUID VARCHAR(100), Reason VARCHAR(128), Duration VARCHAR(100), Perma BOOLEAN)");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
