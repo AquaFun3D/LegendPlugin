@@ -13,12 +13,7 @@ public class UnbanCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender.isOp()){
 			if(args.length > 0){
-				Player player = Bukkit.getPlayer(args[0]);
-				if(player == null){
-					sender.sendMessage("§e" + BanReasonsConfig.get("PlayerOffline"));
-					return false;
-				}
-				BanService.unban(player.getUniqueId());
+				BanService.unban(args[0]);
 				sender.sendMessage("§e" + BanReasonsConfig.get("PlayerUnban1") + "§b" +  args[0] + "§e" +  BanReasonsConfig.get("PlayerUnban2"));
 			}else{
 				sender.sendMessage("§a" + BanReasonsConfig.get("UnbanCommand"));

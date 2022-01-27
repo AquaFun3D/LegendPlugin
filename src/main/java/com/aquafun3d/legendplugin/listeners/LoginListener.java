@@ -27,7 +27,7 @@ public class LoginListener implements Listener {
 	public void onJoin(PlayerJoinEvent e){
 		Player player = e.getPlayer();
 		if(BanService.getRemainingTime(player.getUniqueId()) <= 0 && !BanService.isPerma(player.getUniqueId())) {
-			BanService.unban(player.getUniqueId());
+			BanService.unban(player.getDisplayName());
 		}
 	}
 }

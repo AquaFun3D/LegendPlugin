@@ -21,7 +21,7 @@ public class BanCommand implements CommandExecutor {
 				int time = Integer.parseInt(args[1]);
 				StringBuilder reason = new StringBuilder();
 				for (int i = 2; i < args.length; i++){
-					reason.append(args[i]);
+					reason.append(args[i] + " ");
 				}
 				BanService.ban(player.getUniqueId(), player.getDisplayName(), time, reason.toString());
 				sender.sendMessage("§e" + BanReasonsConfig.get("PlayerBan1") + "§b" + args[0] + "§e" +  BanReasonsConfig.get("PlayerBan2"));

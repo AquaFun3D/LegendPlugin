@@ -39,8 +39,8 @@ public class BanService {
 		}
 	}
 
-	public static void unban(UUID uuid){
-		MySQL.update("DELETE FROM legend.bansystem WHERE UUID='"+uuid+"'");
+	public static void unban(String name){
+		MySQL.update("DELETE FROM legend.bansystem WHERE Playername='"+name+"'");
 	}
 
 	public static boolean isPerma(UUID uuid){
