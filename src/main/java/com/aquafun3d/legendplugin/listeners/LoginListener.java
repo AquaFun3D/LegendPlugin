@@ -16,13 +16,16 @@ public class LoginListener implements Listener {
 			if(BanService.getRemainingTime(player.getUniqueId()) > 0){
 				e.disallow(PlayerLoginEvent.Result.KICK_BANNED, "§e" + BanReasonsConfig.get("BannedPlayer1") + "§6" +  (int) BanService.getRemainingTime(player.getUniqueId()) + "§e" +  BanReasonsConfig.get("BannedPlayer2") + "§c" +  BanService.getReason(player.getUniqueId()));
 			}
+			if(BanService.getRemainingTime(player.getUniqueId()) == -1){
+				e.disallow(PlayerLoginEvent.Result.KICK_BANNED, "§e" + BanReasonsConfig.get("PermanBan") +  BanService.getReason(player.getUniqueId()));
+			}
 		}
 	}
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e){
 		Player player = e.getPlayer();
-		if(BanService.getRemainingTime(player.getUniqueId()) <= 0) {
+		if(BanService.getRemainingTime(player.getUniqueId()) <= 0 && BanService.getRemainingTime(player.getUniqueId()) != -1) {
 			BanService.unban(player.getUniqueId());
 		}
 	}

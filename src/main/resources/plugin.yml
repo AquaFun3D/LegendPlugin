@@ -8,6 +8,6 @@ description: Bannsystem für PlayLegend
 
 commands:
   ban:
-    description: Bans a player
+    description: Ban a player for a specific time or permanent
   unban:
     description: unbans a player

@@ -42,5 +42,3 @@ public final class Main extends JavaPlugin {
 
 }
 //TODO Javadoc
-//TODO Pluginyml description
-//TODO Farben config?
