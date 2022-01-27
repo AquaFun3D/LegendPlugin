@@ -15,7 +15,7 @@ public class BanCommand implements CommandExecutor {
 			if(args.length >= 3){
 				Player player = Bukkit.getPlayer(args[0]);
 				if(player == null){
-					sender.sendMessage(BanReasonsConfig.get("PlayerOffline"));
+					sender.sendMessage("§e" + BanReasonsConfig.get("PlayerOffline"));
 					return false;
 				}
 				int time = Integer.parseInt(args[1]);
@@ -24,12 +24,12 @@ public class BanCommand implements CommandExecutor {
 					reason.append(args[i]);
 				}
 				BanService.ban(player.getUniqueId(), player.getDisplayName(), time, reason.toString());
-				sender.sendMessage(BanReasonsConfig.get("PlayerBan1") + args[0] + BanReasonsConfig.get("PlayerBan2"));
+				sender.sendMessage("§e" + BanReasonsConfig.get("PlayerBan1") + "§b" + args[0] + "§e" +  BanReasonsConfig.get("PlayerBan2"));
 			}else{
-				sender.sendMessage(BanReasonsConfig.get("BanCommand"));
+				sender.sendMessage("§a" + BanReasonsConfig.get("BanCommand"));
 			}
 		}else{
-			sender.sendMessage(BanReasonsConfig.get("PermissionBan"));
+			sender.sendMessage("§c" + BanReasonsConfig.get("PermissionBan"));
 		}
 		return false;
 	}

@@ -15,16 +15,16 @@ public class UnbanCommand implements CommandExecutor {
 			if(args.length > 0){
 				Player player = Bukkit.getPlayer(args[0]);
 				if(player == null){
-					sender.sendMessage(BanReasonsConfig.get("PlayerOffline"));
+					sender.sendMessage("§e" + BanReasonsConfig.get("PlayerOffline"));
 					return false;
 				}
 				BanService.unban(player.getUniqueId());
-				sender.sendMessage(BanReasonsConfig.get("PlayerUnban1") + args[0] + BanReasonsConfig.get("PlayerUnban2"));
+				sender.sendMessage("§e" + BanReasonsConfig.get("PlayerUnban1") + "§b" +  args[0] + "§e" +  BanReasonsConfig.get("PlayerUnban2"));
 			}else{
-				sender.sendMessage(BanReasonsConfig.get("UnbanCommand"));
+				sender.sendMessage("§a" + BanReasonsConfig.get("UnbanCommand"));
 			}
 		}else {
-			sender.sendMessage(BanReasonsConfig.get("PermissionUnban"));
+			sender.sendMessage("§c" + BanReasonsConfig.get("PermissionUnban"));
 		}
 		return false;
 	}

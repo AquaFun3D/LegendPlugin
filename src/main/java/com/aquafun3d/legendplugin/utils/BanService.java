@@ -32,7 +32,7 @@ public class BanService {
 		}
 		MySQL.update("INSERT INTO legend.bansystem (Playername, UUID, Reason, Duration) VALUES ('"+name+"','"+uuid+"','"+reason+"','"+duration+"')");
 		if(Bukkit.getPlayer(name) != null){
-			Bukkit.getPlayer(name).kickPlayer(BanReasonsConfig.get("KickPlayer1") + time + BanReasonsConfig.get("KickPlayer2") + reason);
+			Bukkit.getPlayer(name).kickPlayer( "§e" + BanReasonsConfig.get("KickPlayer1") + "§6" +  time + "§e" +  BanReasonsConfig.get("KickPlayer2") + "§c" +  reason);
 		}
 	}
 

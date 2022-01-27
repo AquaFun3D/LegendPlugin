@@ -14,7 +14,7 @@ public class LoginListener implements Listener {
 		Player player = e.getPlayer();
 		if(BanService.isBanned(player.getUniqueId())){
 			if(BanService.getRemainingTime(player.getUniqueId()) > 0){
-				e.disallow(PlayerLoginEvent.Result.KICK_BANNED, BanReasonsConfig.get("BannedPlayer1") + (int) BanService.getRemainingTime(player.getUniqueId()) + BanReasonsConfig.get("BannedPlayer2") + BanService.getReason(player.getUniqueId()));
+				e.disallow(PlayerLoginEvent.Result.KICK_BANNED, "§e" + BanReasonsConfig.get("BannedPlayer1") + "§6" +  (int) BanService.getRemainingTime(player.getUniqueId()) + "§e" +  BanReasonsConfig.get("BannedPlayer2") + "§c" +  BanService.getReason(player.getUniqueId()));
 			}
 		}
 	}
