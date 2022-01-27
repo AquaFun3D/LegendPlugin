@@ -32,7 +32,7 @@ public class BanService {
 		}
 		MySQL.update("INSERT INTO legend.bansystem (Playername, UUID, Reason, Duration) VALUES ('"+name+"','"+uuid+"','"+reason+"','"+duration+"')");
 		if(Bukkit.getPlayer(name) != null){
-			Bukkit.getPlayer(name).kickPlayer("lorem ipsum"); //TODO
+			Bukkit.getPlayer(name).kickPlayer(BanReasonsConfig.get("KickPlayer1") + time + BanReasonsConfig.get("KickPlayer2") + reason);
 		}
 	}
 
@@ -60,7 +60,8 @@ public class BanService {
 			try {
 				while (rs.next()) {
 					float time = rs.getLong("Duration") - System.currentTimeMillis();
-					return time / 60000;
+					time /= 60000;
+					return (float) (Math.round(time * 1));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

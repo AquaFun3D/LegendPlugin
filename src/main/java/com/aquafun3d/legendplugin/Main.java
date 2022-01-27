@@ -42,4 +42,5 @@ public final class Main extends JavaPlugin {
 
 }
 //TODO Javadoc
-//TODO Pluginyml description & Command use hübsch
+//TODO Pluginyml description
+//TODO Farben config?

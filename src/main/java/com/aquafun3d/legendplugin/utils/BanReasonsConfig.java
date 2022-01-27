@@ -26,5 +26,15 @@ public class BanReasonsConfig {
 		}
 		config = YamlConfiguration.loadConfiguration(file);
 	}
-	//TODO Getter und Setter
+
+	public static boolean contains(String path){
+		return config.contains(path);
+	}
+
+	public static String get(String path){
+		if(contains(path)){
+			return config.getString(path);
+		}
+		return "null";
+	}
 }

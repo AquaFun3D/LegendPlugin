@@ -1,5 +1,6 @@
 package com.aquafun3d.legendplugin.commands;
 
+import com.aquafun3d.legendplugin.utils.BanReasonsConfig;
 import com.aquafun3d.legendplugin.utils.BanService;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -13,13 +14,17 @@ public class UnbanCommand implements CommandExecutor {
 		if (sender.isOp()){
 			if(args.length > 0){
 				Player player = Bukkit.getPlayer(args[0]);
+				if(player == null){
+					sender.sendMessage(BanReasonsConfig.get("PlayerOffline"));
+					return false;
+				}
 				BanService.unban(player.getUniqueId());
-				sender.sendMessage("Spieler XY entbannt"); //TODO
+				sender.sendMessage(BanReasonsConfig.get("PlayerUnban1") + args[0] + BanReasonsConfig.get("PlayerUnban2"));
 			}else{
-				sender.sendMessage("command use"); //TODO
+				sender.sendMessage(BanReasonsConfig.get("UnbanCommand"));
 			}
 		}else {
-			sender.sendMessage("Du hast keine Rechte jemanden zu entbannen."); //TODO
+			sender.sendMessage(BanReasonsConfig.get("PermissionUnban"));
 		}
 		return false;
 	}

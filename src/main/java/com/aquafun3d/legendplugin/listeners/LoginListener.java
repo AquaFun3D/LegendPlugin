@@ -1,5 +1,6 @@
 package com.aquafun3d.legendplugin.listeners;
 
+import com.aquafun3d.legendplugin.utils.BanReasonsConfig;
 import com.aquafun3d.legendplugin.utils.BanService;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,7 +14,7 @@ public class LoginListener implements Listener {
 		Player player = e.getPlayer();
 		if(BanService.isBanned(player.getUniqueId())){
 			if(BanService.getRemainingTime(player.getUniqueId()) > 0){
-				e.disallow(PlayerLoginEvent.Result.KICK_BANNED,"Reason"); //TODO
+				e.disallow(PlayerLoginEvent.Result.KICK_BANNED, BanReasonsConfig.get("BannedPlayer1") + (int) BanService.getRemainingTime(player.getUniqueId()) + BanReasonsConfig.get("BannedPlayer2") + BanService.getReason(player.getUniqueId()));
 			}
 		}
 	}
