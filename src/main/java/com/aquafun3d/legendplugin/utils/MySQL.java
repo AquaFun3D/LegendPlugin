@@ -55,7 +55,8 @@ public class MySQL {
 	public void createTable(){
 		if(isConnected()){
 			try {
-				connection.createStatement().executeUpdate("CREATE TABLE IF NOT EXISTS legend.bansystem (Playername VARCHAR(16), UUID VARCHAR(100), Reason VARCHAR(128), Duration VARCHAR(100), Perma BOOLEAN)");
+				PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS legend.bansystem (Playername VARCHAR(16), UUID VARCHAR(100), Reason VARCHAR(128), Duration VARCHAR(100), Perma BOOLEAN)");
+				ps.executeQuery();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -69,7 +70,8 @@ public class MySQL {
 	public void update(String query){
 		if(isConnected()){
 			try {
-				connection.createStatement().executeUpdate(query);
+				PreparedStatement ps = connection.prepareStatement(query);
+				ps.executeQuery();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -84,7 +86,8 @@ public class MySQL {
 	public ResultSet getResult(String query){
 		if(isConnected()){
 			try {
-				return connection.createStatement().executeQuery(query);
+				PreparedStatement ps = connection.prepareStatement(query);
+				return ps.executeQuery();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
