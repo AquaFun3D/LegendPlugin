@@ -9,13 +9,17 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class BanCommand implements CommandExecutor {
+
+	private BanManager man = new BanManager();
+	private BanReasonsConfig con = new BanReasonsConfig();
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if(sender.isOp()){
 			if(args.length >= 3){
 				Player player = Bukkit.getPlayer(args[0]);
 				if(player == null){
-					sender.sendMessage("§e" + BanReasonsConfig.get("PlayerOffline"));
+					sender.sendMessage("§e" + con.get("PlayerOffline"));
 					return false;
 				}
 				int time = Integer.parseInt(args[1]);
@@ -23,13 +27,13 @@ public class BanCommand implements CommandExecutor {
 				for (int i = 2; i < args.length; i++){
 					reason.append(args[i] + " ");
 				}
-				BanManager.ban(player.getUniqueId(), player.getDisplayName(), time, reason.toString());
-				sender.sendMessage("§e" + BanReasonsConfig.get("PlayerBan1") + "§b" + args[0] + "§e" +  BanReasonsConfig.get("PlayerBan2"));
+				man.ban(player.getUniqueId(), player.getDisplayName(), time, reason.toString());
+				sender.sendMessage("§e" + con.get("PlayerBan1") + "§b" + args[0] + "§e" +  con.get("PlayerBan2"));
 			}else{
-				sender.sendMessage("§a" + BanReasonsConfig.get("BanCommand"));
+				sender.sendMessage("§a" + con.get("BanCommand"));
 			}
 		}else{
-			sender.sendMessage("§c" + BanReasonsConfig.get("PermissionBan"));
+			sender.sendMessage("§c" + con.get("PermissionBan"));
 		}
 		return false;
 	}

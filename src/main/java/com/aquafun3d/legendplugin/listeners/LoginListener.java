@@ -10,19 +10,22 @@ import org.bukkit.event.player.PlayerLoginEvent;
 
 public class LoginListener implements Listener {
 
+	private BanManager man = new BanManager();
+	private BanReasonsConfig con = new BanReasonsConfig();
+
 	/**
 	 *Check if a player is banned and restricts login after
 	 */
 	@EventHandler
 	public void onLogin(PlayerLoginEvent e){
 		Player player = e.getPlayer();
-		if(BanManager.isBanned(player.getUniqueId())){
-			if(BanManager.getRemainingTime(player.getUniqueId()) > 0){
-				int time = Math.round(BanManager.getRemainingTime(player.getUniqueId())*10)/10;
-				e.disallow(PlayerLoginEvent.Result.KICK_BANNED, "§e" + BanReasonsConfig.get("BannedPlayer1") + "§6" + time + "§e" +  BanReasonsConfig.get("BannedPlayer2") + "§c" +  BanManager.getReason(player.getUniqueId()));
+		if(man.isBanned(player.getUniqueId())){
+			if(man.getRemainingTime(player.getUniqueId()) > 0){
+				int time = Math.round(man.getRemainingTime(player.getUniqueId())*10)/10;
+				e.disallow(PlayerLoginEvent.Result.KICK_BANNED, "§e" + con.get("BannedPlayer1") + "§6" + time + "§e" +  con.get("BannedPlayer2") + "§c" +  man.getReason(player.getUniqueId()));
 			}
-			if(BanManager.isPerma(player.getUniqueId())){
-				e.disallow(PlayerLoginEvent.Result.KICK_BANNED, "§e" + BanReasonsConfig.get("PermaBan") +  BanManager.getReason(player.getUniqueId()));
+			if(man.isPerma(player.getUniqueId())){
+				e.disallow(PlayerLoginEvent.Result.KICK_BANNED, "§e" + con.get("PermaBan") +  man.getReason(player.getUniqueId()));
 			}
 		}
 	}
@@ -33,8 +36,8 @@ public class LoginListener implements Listener {
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e){
 		Player player = e.getPlayer();
-		if(BanManager.getRemainingTime(player.getUniqueId()) <= 0 && !BanManager.isPerma(player.getUniqueId())) {
-			BanManager.unban(player.getDisplayName());
+		if(man.getRemainingTime(player.getUniqueId()) <= 0 && !man.isPerma(player.getUniqueId())) {
+			man.unban(player.getDisplayName());
 		}
 	}
 }

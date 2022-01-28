@@ -11,13 +11,22 @@ import java.util.UUID;
  */
 public class BanManager {
 
+	private MySQL sql;
+	private BanReasonsConfig con;
+
+	public BanManager() {
+		sql = new MySQL();
+		sql.connect();
+		con = new BanReasonsConfig();
+	}
+
 	/**
 	 * Checks if a player is already banned (is in database)
 	 * @param uuid UUID of the player
 	 * @return true if banned
 	 */
-	public static boolean isBanned(UUID uuid){
-		ResultSet rs = MySQL.getResult("SELECT * FROM legend.bansystem WHERE UUID='"+uuid+"'");
+	public boolean isBanned(UUID uuid){
+		ResultSet rs = sql.getResult("SELECT * FROM legend.bansystem WHERE UUID='"+uuid+"'");
 		try{
 			while (rs.next()){
 				return rs != null;
@@ -35,7 +44,7 @@ public class BanManager {
 	 * @param time time for how long the player is banned in minutes
 	 * @param reason reason why the player got banned
 	 */
-	public static void ban(UUID uuid, String name, int time, String reason){
+	public void ban(UUID uuid, String name, int time, String reason){
 		if(isBanned(uuid)){
 			return;
 		}
@@ -44,12 +53,12 @@ public class BanManager {
 			perma = 1;
 		}
 		long duration = time * 60000L + System.currentTimeMillis();
-		MySQL.update("INSERT INTO legend.bansystem (Playername, UUID, Reason, Duration, Perma) VALUES ('"+name+"','"+uuid+"','"+reason+"','"+duration+"','"+perma+"')");
+		sql.update("INSERT INTO legend.bansystem (Playername, UUID, Reason, Duration, Perma) VALUES ('"+name+"','"+uuid+"','"+reason+"','"+duration+"','"+perma+"')");
 		if(Bukkit.getPlayer(name) != null) {
 			if (perma == 0) {
-				Bukkit.getPlayer(name).kickPlayer("§e" + BanReasonsConfig.get("KickPlayer1") + "§6" + time + "§e" + BanReasonsConfig.get("KickPlayer2") + "§c" + reason);
+				Bukkit.getPlayer(name).kickPlayer("§e" + con.get("KickPlayer1") + "§6" + time + "§e" + con.get("KickPlayer2") + "§c" + reason);
 			}else {
-				Bukkit.getPlayer(name).kickPlayer("§e" + BanReasonsConfig.get("PermaKick") + "§c" + reason);
+				Bukkit.getPlayer(name).kickPlayer("§e" + con.get("PermaKick") + "§c" + reason);
 			}
 		}
 	}
@@ -58,8 +67,8 @@ public class BanManager {
 	 * Removes a banned player from database
 	 * @param name name of the player to unban
 	 */
-	public static void unban(String name){
-		MySQL.update("DELETE FROM legend.bansystem WHERE Playername='"+name+"'");
+	public void unban(String name){
+		sql.update("DELETE FROM legend.bansystem WHERE Playername='"+name+"'");
 	}
 
 	/**
@@ -67,9 +76,9 @@ public class BanManager {
 	 * @param uuid players uuid
 	 * @return true if player is permabanned
 	 */
-	public static boolean isPerma(UUID uuid){
+	public boolean isPerma(UUID uuid){
 		if(isBanned(uuid)) {
-			ResultSet rs = MySQL.getResult("SELECT * FROM legend.bansystem WHERE UUID='"+uuid+"'");
+			ResultSet rs = sql.getResult("SELECT * FROM legend.bansystem WHERE UUID='"+uuid+"'");
 			try {
 				while (rs.next()) {
 					return (rs.getInt("Perma") == 1);
@@ -86,9 +95,9 @@ public class BanManager {
 	 * @param uuid players uuid
 	 * @return Reason why the player was banned
 	 */
-	public static String getReason(UUID uuid){
+	public String getReason(UUID uuid){
 		if(isBanned(uuid)) {
-			ResultSet rs = MySQL.getResult("SELECT * FROM legend.bansystem WHERE UUID='"+uuid+"'");
+			ResultSet rs = sql.getResult("SELECT * FROM legend.bansystem WHERE UUID='"+uuid+"'");
 			try {
 				while (rs.next()) {
 					return rs.getString("Reason");
@@ -105,9 +114,9 @@ public class BanManager {
 	 * @param uuid players uuid
 	 * @return time in minutes
 	 */
-	public static float getRemainingTime(UUID uuid){
+	public float getRemainingTime(UUID uuid){
 		if(isBanned(uuid)) {
-			ResultSet rs = MySQL.getResult("SELECT * FROM legend.bansystem WHERE UUID='"+uuid+"'");
+			ResultSet rs = sql.getResult("SELECT * FROM legend.bansystem WHERE UUID='"+uuid+"'");
 			try {
 				while (rs.next()) {
 					float time = rs.getLong("Duration") - System.currentTimeMillis();

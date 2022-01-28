@@ -7,8 +7,8 @@ import java.io.IOException;
 
 public class BanReasonsConfig {
 
-	private static File file;
-	private static YamlConfiguration config;
+	private File file;
+	private YamlConfiguration config;
 
 	/**
 	 * Creates config file if not existing
@@ -35,7 +35,7 @@ public class BanReasonsConfig {
 	 * @param path Path to check
 	 * @return true if valid
 	 */
-	public static boolean contains(String path){
+	public boolean contains(String path){
 		return config.contains(path);
 	}
 
@@ -44,7 +44,7 @@ public class BanReasonsConfig {
 	 * @param path Path to check in config
 	 * @return String form config
 	 */
-	public static String get(String path){
+	public String get(String path){
 		if(contains(path)){
 			return config.getString(path);
 		}

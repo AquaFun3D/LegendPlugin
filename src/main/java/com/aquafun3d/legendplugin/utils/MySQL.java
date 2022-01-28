@@ -10,12 +10,12 @@ public class MySQL {
 	/**
 	 * connection variable of the database
 	 */
-	private static Connection connection;
+	private Connection connection;
 
 	/**
 	 * Connect to MySQL Database
 	 */
-	public static void connect(){
+	public void connect(){
 		if(!isConnected()){
 			try {
 				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mysql","me","Lolli");
@@ -30,7 +30,7 @@ public class MySQL {
 	/**
 	 * Disconnect from MySQL Databse
 	 */
-	public static void disconnect(){
+	public void disconnect(){
 		if(!isConnected()){
 			try {
 				connection.close();
@@ -45,14 +45,14 @@ public class MySQL {
 	 * Check if database is connected
 	 * @return true if connected, false if not
 	 */
-	public static boolean isConnected(){
+	public boolean isConnected(){
 		return connection != null;
 	}
 
 	/**
 	 * Create a Table in database if not existing
 	 */
-	public static void createTable(){
+	public void createTable(){
 		if(isConnected()){
 			try {
 				connection.createStatement().executeUpdate("CREATE TABLE IF NOT EXISTS legend.bansystem (Playername VARCHAR(16), UUID VARCHAR(100), Reason VARCHAR(128), Duration VARCHAR(100), Perma BOOLEAN)");
@@ -66,7 +66,7 @@ public class MySQL {
 	 * Makes an Update to the database by a given query
 	 * @param query given query to update in database
 	 */
-	public static void update(String query){
+	public void update(String query){
 		if(isConnected()){
 			try {
 				connection.createStatement().executeUpdate(query);
@@ -81,7 +81,7 @@ public class MySQL {
 	 * @param query Query to get result of
 	 * @return Result of given query
 	 */
-	public static ResultSet getResult(String query){
+	public ResultSet getResult(String query){
 		if(isConnected()){
 			try {
 				return connection.createStatement().executeQuery(query);

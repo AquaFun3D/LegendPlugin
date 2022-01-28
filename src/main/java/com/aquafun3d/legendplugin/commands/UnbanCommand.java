@@ -8,17 +8,20 @@ import org.bukkit.command.CommandSender;
 
 public class UnbanCommand implements CommandExecutor {
 
+	private BanManager man = new BanManager();
+	private BanReasonsConfig con = new BanReasonsConfig();
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender.isOp()){
 			if(args.length > 0){
-				BanManager.unban(args[0]);
-				sender.sendMessage("§e" + BanReasonsConfig.get("PlayerUnban1") + "§b" +  args[0] + "§e" +  BanReasonsConfig.get("PlayerUnban2"));
+				man.unban(args[0]);
+				sender.sendMessage("§e" + con.get("PlayerUnban1") + "§b" +  args[0] + "§e" +  con.get("PlayerUnban2"));
 			}else{
-				sender.sendMessage("§a" + BanReasonsConfig.get("UnbanCommand"));
+				sender.sendMessage("§a" + con.get("UnbanCommand"));
 			}
 		}else {
-			sender.sendMessage("§c" + BanReasonsConfig.get("PermissionUnban"));
+			sender.sendMessage("§c" + con.get("PermissionUnban"));
 		}
 		return false;
 	}
